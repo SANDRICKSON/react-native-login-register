@@ -1,120 +1,170 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, TextInput, Alert, TouchableOpacity, View } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  Alert,
+  TouchableOpacity,
+  View,
+  ScrollView
+} from 'react-native';
 
 export default class Login extends React.Component {
 
-    state = {
-        email: "",
-        password: ""
+  state = {
+    email: "",
+    password: ""
+  }
+
+  checkInput = () => {
+    if (this.state.email != '') {
+      if (this.state.password != '') {
+        Alert.alert('წარმატება', 'თქვენ წარმატებით გაიარეთ ავტორიზაცია!');
+      } else {
+        Alert.alert('შეცდომა', 'გთხოვთ შეიყვანოთ პაროლი');
+      }
+    } else {
+      Alert.alert('შეცდომა', 'გთხოვთ შეიყვანოთ იმეილი');
     }
+  }
 
-    checkInput = () => {
-        if (this.state.email != '') {
-            if (this.state.password != '') {
-                Alert.alert('წარმატება', 'თქვენ წარმატებით გაიარეთ ავტორიზაცია!');
-            } else {
-                Alert.alert('შეცდომა', 'გთხოვთ შეიყვანოთ პაროლი');
-            }
-        } else {
-            Alert.alert('შეცდომა', 'გთხოვთ შეიყვანოთ იმეილი');
-        }
-    }
+  showAlert = () => {
+    Alert.alert("Email", this.state.email);
+  }
 
-    showAlert = () => {
-        Alert.alert("Email", this.state.email);
-    }
+  showFullAlert = () => {
+    Alert.alert(
+      "Login Information",
+      `Email: ${this.state.email}\nPassword: ${this.state.password}`
+    );
+  }
 
-    showFullAlert = () => {
-        Alert.alert(
-            "Login Information",
-            `Email: ${this.state.email}\nPassword: ${this.state.password}`
-        );
-    }
+  render() {
+    return (
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.container}>
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.loginText} onPress={this.checkInput}>Log In</Text>
+          <Text style={styles.title}>Log In</Text>
 
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter your email"
-                    placeholderTextColor="#999"
-                    onChangeText={text => this.setState({ email: text })}
-                    value={this.state.email}
-                />
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter your email"
+              placeholderTextColor="#9ca3af"
+              onChangeText={text => this.setState({ email: text })}
+              value={this.state.email}
+            />
+          </View>
 
-                <TextInput
-                    style={styles.input}
-                    placeholder="Enter your password"
-                    placeholderTextColor="#999"
-                    onChangeText={text => this.setState({ password: text })}
-                    value={this.state.password}
-                    secureTextEntry
-                />
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter your password"
+              placeholderTextColor="#9ca3af"
+              onChangeText={text => this.setState({ password: text })}
+              value={this.state.password}
+              secureTextEntry
+            />
+          </View>
 
-                <TouchableOpacity>
-                    <Text style={styles.forgotText}>Forgot Password?</Text>
-                </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.linkContainer}
+            onPress={() => this.props.navigation.navigate('Registration')}
+          >
+            <Text style={styles.linkText}>Don't have an account?</Text>
+            <Text style={styles.linkHighlight}>Register</Text>
+          </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={this.checkInput}
-                >
-                    <Text style={styles.buttonText}>Log In</Text>
-                </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={this.checkInput}
+          >
+            <Text style={styles.buttonText}>Log In</Text>
+          </TouchableOpacity>
 
-                <StatusBar style="auto" />
-            </View>
-        );
-    }
+        </View>
+        <StatusBar style="auto" />
+      </ScrollView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    backgroundColor: '#f4f6fb',
+  },
 
-    loginText: {
-        fontWeight: 'bold',
-        fontSize: 30,
-        color: "blue",
-        marginBottom: 40,
-    },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 40,
+    paddingHorizontal: 20,
+  },
 
-    input: {
-        width: "70%",
-        backgroundColor: "blue",
-        height: 50,
-        borderRadius: 25,
-        marginBottom: 20,
-        paddingHorizontal: 20,
-        color: "#fff",
-    },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 32,
+    color: "#1e3a8a",
+    marginBottom: 30,
+  },
 
-    forgotText: {
-        color: "blue",
-        marginTop: 10,
-        marginBottom: 20,
-    },
+  inputContainer: {
+    width: "100%",
+    marginBottom: 18,
+  },
 
-    button: {
-        backgroundColor: "blue",
-        width: "70%",
-        height: 50,
-        borderRadius: 25,
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 10,
-    },
+  input: {
+    width: "100%",
+    backgroundColor: "#ffffff",
+    height: 55,
+    borderRadius: 14,
+    paddingHorizontal: 18,
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: "#e5e7eb",
+    shadowColor: "#000",
+    shadowOpacity: 0.05,
+    shadowRadius: 5,
+    elevation: 3,
+  },
 
-    buttonText: {
-        color: "#fff",
-        fontSize: 16,
-        fontWeight: "bold",
-    }
+  button: {
+    backgroundColor: "#2563eb",
+    width: "100%",
+    height: 55,
+    borderRadius: 14,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 15,
+    shadowColor: "#2563eb",
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
+  },
+
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "600",
+  },
+
+  linkContainer: {
+    marginTop: 15,
+    alignItems: "center",
+  },
+
+  linkText: {
+    color: "#6b7280",
+    fontSize: 14,
+  },
+
+  linkHighlight: {
+    color: "#2563eb",
+    fontWeight: "600",
+    marginTop: 5,
+  },
 });

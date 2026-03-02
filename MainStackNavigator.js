@@ -14,11 +14,12 @@ const Stack = createStackNavigator();
 export default function MainStackNavigator() {
 
     return (<NavigationContainer>
-        <Stack.Navigator initialRouteName="Registration">
-            <Stack.Screen name="Login" component={Login} options={{ title: 'Login' }}></Stack.Screen>
+        <Stack.Navigator initialRouteName="Registration" headerMode="float" screenOptions={{ gestureEnabled: true, headerStyle: { backgroundColor: 'blue' }, headerTitleStyle: { fontWeight: 'bold' },headerBackTitleVisible:true,headerTintColor:'white' }}>
+            <Stack.Screen name="Login" component={Login} options={{ title: 'Login' }} ></Stack.Screen>
             <Stack.Screen name="Registration" component={Registration} options={{ title: 'Registration' }}></Stack.Screen>
         </Stack.Navigator>
-    </NavigationContainer>
+    </NavigationContainer >
     )
 }
 
+// headerBackTitleVisible:true, ეს მხოლოდ აიფონზე მუშაობს

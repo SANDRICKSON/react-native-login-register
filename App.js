@@ -1,8 +1,6 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, TextInput, Alert, TouchableOpacity, View } from 'react-native';
-import MainStackNavigator from './MainStackNavigator';
+import MainStackNavigator from './MainStackNavigator'; // ფაილის სახელი შეცვალე შესაბამისად
 
-export default function App(){
-    return <MainStackNavigator />
+export default function App() {
+  return <MainStackNavigator />;
 }
